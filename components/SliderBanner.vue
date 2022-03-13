@@ -75,7 +75,7 @@ export default {
         }
       ],
       swiperOption: {
-        slidesPerView: 4,
+        slidesPerView: 5,
         spaceBetween: 10,
         /*
         pagination: {

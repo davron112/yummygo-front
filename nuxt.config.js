@@ -10,7 +10,12 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
-
+  ssr: process.env.SEO_ENABLE === 'true',
+  server: {
+    port: process.env.SERVER_PORT,
+    host: process.env.SERVER_IP
+  },
+  rootDir: __dirname,
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     'swiper/dist/css/swiper.css',
