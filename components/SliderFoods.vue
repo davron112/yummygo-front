@@ -25,48 +25,13 @@
   </div>
 </template>
 <script type="text/javascript">
+import {getRestaurantSlides} from "~/http/restaurants";
+
 export default {
   name: 'SliderFoods',
   data() {
     return {
-      getSliderItems: [
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/1566646245o1m4bOO6vi.png'
-        },
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/156664628890XKDEjOhq.png'
-        },
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/1566646099fzDvDqnOuP.png'
-        },
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/1566646245o1m4bOO6vi.png'
-        },
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/1566646245o1m4bOO6vi.png'
-        },
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/1566646245o1m4bOO6vi.png'
-        },
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/1566646245o1m4bOO6vi.png'
-        },
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/1566646245o1m4bOO6vi.png'
-        },
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/1566646245o1m4bOO6vi.png'
-        }
-      ],
+      getSliderItems: [],
       swiperOption: {
         slidesPerView: 12,
         spaceBetween: 10,
@@ -95,6 +60,13 @@ export default {
         loop: true
       },
       items: []
+    }
+  },
+  methods: {
+    loadData() {
+      getRestaurantSlides().then((res) {
+
+      })
     }
   }
 }

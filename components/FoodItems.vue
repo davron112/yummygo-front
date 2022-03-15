@@ -4,15 +4,15 @@
       <h3 style="text-transform: uppercase">Taklif qiliniyotgan ovqatlar</h3>
     </div>
     <div class="columns is-multiline">
-      <CardItem class="column is-2" v-for="(item, index) in 5" :key="index"/>
+      <CardItem v-for="(item, index) in 5" :key="index" class="column is-2" />
     </div>
   </div>
 </template>
 
 <script>
-import CardItem from "./CardItem";
+import CardItem from './CardItem'
 export default {
-  name: "FoodItems",
-  components: {CardItem}
+  name: 'FoodItems',
+  components: { CardItem }
 }
 </script>

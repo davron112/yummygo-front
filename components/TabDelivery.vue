@@ -19,6 +19,6 @@
 
 <script>
 export default {
-name: "TabDelivery"
+  name: 'TabDelivery'
 }
 </script>

@@ -1,18 +1,39 @@
 <template>
   <div class="block">
     <div class="columns is-left">
-      <h3 style="text-transform: uppercase">Yaqiningizdagi 20 dan ortiq restoranlar</h3>
+      <h2 style="text-transform: uppercase">Yaqiningizdagi {{ getRestaurants.length }} dan ortiq restoranlar</h2>
     </div>
     <div class="columns is-multiline">
-      <RestaurantItem class="column is-2" v-for="(item, index) in 12" :key="index" style="padding: 8px"/>
+      <RestaurantItem
+        v-for="(item, index) in getRestaurants"
+        :key="index"
+        class="column is-2"
+        :item="item"
+        style="padding: 8px"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import RestaurantItem from "./RestaurantItem";
+import { mapActions, mapGetters } from 'vuex'
+import RestaurantItem from './RestaurantItem'
 export default {
-  name: "RestaurantsList",
-  components: {RestaurantItem}
+  name: 'RestaurantsList',
+  components: { RestaurantItem },
+  data() {
+    return {
+      restaurants: []
+    }
+  },
+  computed: {
+    ...mapGetters('restaurant', ['getRestaurants'])
+  },
+  async created() {
+    await this.fetchRestaurants({ latitude: '40.6976701', longitude: '-74.2598672' })
+  },
+  methods: {
+    ...mapActions('restaurant', ['fetchRestaurants'])
+  }
 }
 </script>
