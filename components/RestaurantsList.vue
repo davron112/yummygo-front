@@ -1,7 +1,9 @@
 <template>
   <div class="block">
     <div class="columns is-left">
-      <h2 style="text-transform: uppercase">Yaqiningizdagi {{ getRestaurants.length }} dan ortiq restoranlar</h2>
+      <h2 style="text-transform: uppercase; font-weight: 700; font-size: 20px">
+        Yaqiningizdagi {{ getRestaurants.length }} dan ortiq restoranlar
+      </h2>
     </div>
     <div class="columns is-multiline">
       <RestaurantItem

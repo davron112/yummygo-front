@@ -1,22 +1,14 @@
 <template>
-  <div class="home-slider block">
+  <div class="home-slider" style="margin-top: 20px">
     <div v-if="getSliderItems && getSliderItems.length" v-swiper:mySwiperSlider="swiperOption">
       <div class="swiper-wrapper">
         <div v-for="(item, index) in getSliderItems" :key="index" class="swiper-slide">
-          <a :href="item.url">
+          <a href="javascript:void(0)">
             <div class="home-slider__banner-img">
               <img
                 loading="lazy"
-                :data-srcset="item.image"
+                :data-srcset="getImageUrl(item.image)"
                 class="home-slider__desktop-img swiper-lazy"
-                width="100%"
-                style="aspect-ratio: 1 / 1"
-                height="100%"
-              />
-              <img
-                loading="lazy"
-                :data-srcset="item.image"
-                class="home-slider__mobile-img swiper-lazy"
                 width="100%"
                 style="aspect-ratio: 1 / 1"
                 height="100%"
@@ -32,48 +24,13 @@
   </div>
 </template>
 <script type="text/javascript">
+import { getPromoSlides } from '~/http/restaurants'
+
 export default {
   name: 'SliderBanner',
   data() {
     return {
-      getSliderItems: [
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/1566646245o1m4bOO6vi.png'
-        },
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/156664628890XKDEjOhq.png'
-        },
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/1566646099fzDvDqnOuP.png'
-        },
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/1566646245o1m4bOO6vi.png'
-        },
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/1566646245o1m4bOO6vi.png'
-        },
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/1566646245o1m4bOO6vi.png'
-        },
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/1566646245o1m4bOO6vi.png'
-        },
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/1566646245o1m4bOO6vi.png'
-        },
-        {
-          url: '/',
-          image: 'https://demo.foodomaa.com/assets/img/slider/1566646245o1m4bOO6vi.png'
-        }
-      ],
+      getSliderItems: [],
       swiperOption: {
         slidesPerView: 5,
         spaceBetween: 10,
@@ -94,6 +51,16 @@ export default {
         }
       },
       items: []
+    }
+  },
+  created() {
+    this.loadData()
+  },
+  methods: {
+    async loadData() {
+      await getPromoSlides().then((res) => {
+        this.getSliderItems = res.data.mainSlides
+      })
     }
   }
 }
@@ -134,12 +101,6 @@ export default {
 }
 @media (max-width: 720px) {
   .home-slider {
-    &__desktop-img {
-      display: none;
-    }
-    &__mobile-img {
-      display: block;
-    }
     &__pagination {
       text-align: center;
     }

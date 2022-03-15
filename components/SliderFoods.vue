@@ -1,18 +1,19 @@
 <template>
   <div class="home-slider block">
-    <div v-if="getSliderItems && getSliderItems.length" v-swiper:mySwiperSlider="swiperOption">
+    <div v-if="getSliderItems.length" v-swiper:mySwiperSlider="swiperOption">
       <div class="swiper-wrapper">
         <div v-for="(item, index) in getSliderItems" :key="index" class="swiper-slide">
-          <a :href="item.url">
+          <a href="javascript:void(0)">
             <div class="home-slider__banner-img">
               <img
                 loading="lazy"
-                :data-srcset="item.image"
+                :data-srcset="getImageUrl(item.image)"
                 class="home-slider__desktop-img swiper-lazy"
                 width="100%"
                 style="aspect-ratio: 1 / 1; border-radius: 50%"
                 height="100%"
               />
+              <span class="category-slider-name">{{ item.name }}</span>
               <div class="swiper-lazy-preloader"></div>
             </div>
           </a>
@@ -25,7 +26,7 @@
   </div>
 </template>
 <script type="text/javascript">
-import {getRestaurantSlides} from "~/http/restaurants";
+import { getRestaurantSlides } from '@/http/restaurants'
 
 export default {
   name: 'SliderFoods',
@@ -62,16 +63,36 @@ export default {
       items: []
     }
   },
+  created() {
+    this.loadData()
+  },
   methods: {
-    loadData() {
-      getRestaurantSlides().then((res) {
-
+    async loadData() {
+      await getRestaurantSlides().then((res) => {
+        this.getSliderItems = res.data
       })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+.category-slider-name {
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: white;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 0.7rem;
+  left: 50%;
+  top: 100%;
+  text-align: center;
+  padding: 0 5px;
+  min-height: 48px;
+  line-height: 1;
+}
 .swiper-pagination-clickable .swiper-pagination-bullet {
   margin-right: 4px !important;
 }

@@ -11,6 +11,13 @@ export function getDeliveryRestaurants(data) {
 export function getRestaurantSlides() {
   return request({
     url: `/api/get-restaurant-category-slides`,
-    method: 'get'
+    method: 'post'
+  })
+}
+
+export function getPromoSlides() {
+  return request({
+    url: `/api/promo-slider`,
+    method: 'post'
   })
 }

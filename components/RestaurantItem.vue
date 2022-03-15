@@ -2,14 +2,14 @@
   <nuxt-link :to="'/product/restaurant/' + item.slug" class="card">
     <div class="card-image">
       <figure class="image is-4by3">
-        <img :src="getImageUrl(item.image, '300x')" :alt="item.name" />
+        <img :src="getImageUrl(item.image)" :alt="item.name" />
       </figure>
     </div>
     <div class="card-content">
       <div class="media">
         <div class="media-left">
           <figure class="image is-48x48">
-            <img :src="getImageUrl(item.image, '100x')" alt="Placeholder image" />
+            <img :src="getImageUrl(item.image)" alt="Placeholder image" />
           </figure>
         </div>
         <div class="media-content">
