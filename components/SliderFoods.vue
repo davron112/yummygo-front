@@ -1,8 +1,8 @@
 <template>
   <div class="home-slider block">
-    <div v-if="getSliderItems.length" v-swiper:mySwiperSlider="swiperOption">
+    <div v-if="items.length" v-swiper:mySwiperSlider="swiperOption">
       <div class="swiper-wrapper">
-        <div v-for="(item, index) in getSliderItems" :key="index" class="swiper-slide">
+        <div v-for="(item, index) in items" :key="index" class="swiper-slide">
           <a href="javascript:void(0)">
             <div class="home-slider__banner-img">
               <img
@@ -26,13 +26,18 @@
   </div>
 </template>
 <script type="text/javascript">
-import { getRestaurantSlides } from '@/http/restaurants'
-
 export default {
   name: 'SliderFoods',
+  props: {
+    items: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
   data() {
     return {
-      getSliderItems: [],
       swiperOption: {
         slidesPerView: 12,
         spaceBetween: 10,
@@ -59,18 +64,7 @@ export default {
         preloadImages: true,
         lazy: true,
         loop: true
-      },
-      items: []
-    }
-  },
-  created() {
-    this.loadData()
-  },
-  methods: {
-    async loadData() {
-      await getRestaurantSlides().then((res) => {
-        this.getSliderItems = res.data
-      })
+      }
     }
   }
 }

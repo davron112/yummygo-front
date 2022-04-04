@@ -21,3 +21,17 @@ export function getPromoSlides() {
     method: 'post'
   })
 }
+
+export function getRestaurantItems(slug) {
+  return request({
+    url: `/api/get-restaurant-items/${slug}`,
+    method: 'post'
+  })
+}
+
+export function getRestaurantInfo(slug) {
+  return request({
+    url: `/api/get-restaurant-info//${slug}`,
+    method: 'post'
+  })
+}
