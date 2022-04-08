@@ -36,7 +36,7 @@ export default {
   loadingIndicator: {
     name: 'pulse',
     color: '#ffffff',
-    background: '#00b2a9'
+    background: '#ffffff'
   },
   env: {
     app: process.env.NODE_ENV,

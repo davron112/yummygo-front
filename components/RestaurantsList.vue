@@ -9,7 +9,7 @@
       <RestaurantItem
         v-for="(item, index) in getRestaurants"
         :key="index"
-        class="column is-2"
+        class="column is-3"
         :item="item"
         style="padding: 8px"
       />

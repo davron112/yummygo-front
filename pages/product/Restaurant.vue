@@ -40,29 +40,7 @@
       <div>
         <h2 class="block">Foods</h2>
         <div v-for="(item, index) in items" :key="index">
-          <h2 style="margin-bottom: 10px">{{ item.name }}</h2>
-          <div class="columns is-multiline">
-            <div v-for="(food, indexFood) in item.foods" :key="indexFood" class="column is-2">
-              <div class="card">
-                <div class="card-image">
-                  <figure class="image is-4by3">
-                    <img v-lazy="getImageUrl(food.image)" alt="Placeholder image" />
-                  </figure>
-                </div>
-                <div class="card-content">
-                  <h5>{{ food.name }}</h5>
-                  <span>{{ food.price }} UZS</span>
-                  <div class="content" v-html="food.desc"></div>
-                  <span class="tag is-primary">{{ food.category_name }}</span>
-                </div>
-                <footer class="card-footer">
-                  <a href="#" class="card-footer-item">-</a>
-                  <a href="#" class="card-footer-item">❤️</a>
-                  <a href="#" class="card-footer-item">+</a>
-                </footer>
-              </div>
-            </div>
-          </div>
+          <FoodItems :item="item" />
         </div>
       </div>
     </div>
@@ -72,10 +50,11 @@
 <script>
 import { getRestaurantInfo, getRestaurantItems } from '@/http/restaurants'
 import SliderBanner from '@/components/SliderBanner'
+import FoodItems from '@/pages/product/FoodItems'
 
 export default {
   name: 'Restaurant',
-  components: { SliderBanner },
+  components: { FoodItems, SliderBanner },
   data() {
     return {
       info: {},

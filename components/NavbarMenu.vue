@@ -15,30 +15,27 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item"> Home </a>
-
-        <a class="navbar-item"> Documentation </a>
-
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link"> More </a>
-
-          <div class="navbar-dropdown">
-            <a class="navbar-item"> About </a>
-            <a class="navbar-item"> Jobs </a>
-            <a class="navbar-item"> Contact </a>
-            <hr class="navbar-divider" />
-            <a class="navbar-item"> Report an issue </a>
-          </div>
-        </div>
+        <div class="navbar-item"><span class="icon-map-pin"></span>&nbsp;Toshkent, Mirzo Ulugbek, Sayram 44</div>
       </div>
 
       <div class="navbar-end">
+        <div class="navbar-item" style="width: 100%">
+          <div class="control has-icons-right" style="width: 100%">
+            <input class="input" type="text" placeholder="Restoran yoki ovqat nomini kiriting" />
+            <span class="icon is-small is-right">
+              <i class="icon-search"></i>
+            </span>
+          </div>
+        </div>
         <div class="navbar-item">
           <div class="buttons">
             <a class="button is-primary">
-              <strong>Ro'yxatdan o'tish</strong>
+              <span class="icon-shopping-bag"></span><span v-if="cartItems.length">{{ cartItems.length }}</span>
             </a>
-            <a class="button is-light"> Kirish </a>
+            <a class="button is-light">
+              <span class="icon-user-circle-o"></span>
+              &nbsp;Kirish
+            </a>
           </div>
         </div>
       </div>
@@ -47,8 +44,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'NavbarMenu'
+  name: 'NavbarMenu',
+  computed: {
+    ...mapGetters('cart', ['cartItems'])
+  }
 }
 </script>
 <style>

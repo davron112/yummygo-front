@@ -6,3 +6,65 @@ h1 {
   font-size: 20px;
   font-weight: 700;
 }
+.button.is-primary {
+  background-color: #ffa00e !important;
+}
+// Swiper
+.swiper-pagination {
+  min-height: 21px;
+  max-height: 100px;
+}
+.home-slider {
+  .swiper-button-prev, .swiper-button-next {
+    opacity: 0;
+    transform: scale(1);
+    transition: all 0.5s ease;
+    height: 20px;
+    width: 20px;
+    margin: 0;
+    background-image: none;
+    &:before {
+      font: normal normal normal 14px/1 $font-awesome;
+      opacity: 1;
+      color: black;
+      background-color: rgba($white, 0.5);
+      border-radius: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .swiper-button-next {
+    right:1px;
+    &:before {
+      content: "\e909";
+    }
+  }
+  .swiper-button-prev{
+    left: 1px;
+    z-index: 1;
+    &:before {
+      content: "\e908";
+    }
+  }
+  &:hover {
+    .swiper-button-prev, .swiper-button-next  {
+      &.swiper-button-disabled{
+        opacity: 0.35;
+      }
+      opacity: 1;
+      transform: scale(2.5);
+      transition: all 0.5s ease;
+      &:before {
+        opacity: 1;
+      }
+    }
+    .swiper-button-next{
+      right:100px;
+    }
+    .swiper-button-prev {
+      left: 100px;
+    }
+  }
+}

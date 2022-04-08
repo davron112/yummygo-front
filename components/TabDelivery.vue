@@ -3,13 +3,13 @@
     <ul>
       <li class="is-active">
         <a>
-          <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
-          <span>Kurier orqali</span>
+          <span class="icon is-small"><i class="icon-motorcycle" aria-hidden="true"></i></span>
+          <span>Kurier orqali yetkazib berish</span>
         </a>
       </li>
       <li>
         <a>
-          <span class="icon is-small"><i class="fas fa-music" aria-hidden="true"></i></span>
+          <span class="icon is-small"><i class="icon-directions_walk" aria-hidden="true"></i></span>
           <span>Mijoz o'zi olib ketish</span>
         </a>
       </li>
