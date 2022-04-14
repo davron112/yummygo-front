@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-image">
         <figure class="image is-4by3">
-          <img v-lazy="getImageUrl(food.image)" alt="Placeholder image" />
+          <img v-lazy="getImageUrl(food.image, 'x300')" alt="Placeholder image" />
         </figure>
         <div
           style="

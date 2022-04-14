@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { getToken } from '@/utils/authStore'
 import Message from '@/components/packages/message/main'
 import { getCookieKey } from '@/utils/cookieStore'
+import { getCookieData } from '~/utils/cookieData'
 
 const service = axios.create({
   baseURL: process.env.API_DOMEN,
@@ -19,7 +19,7 @@ service.interceptors.request.use(
       activeLangCode = langCode
     }
     config.headers.Language = activeLangCode
-    const accessToken = getToken()
+    const accessToken = getCookieData('token')
     if (accessToken) {
       config.headers.Authorization = 'Bearer ' + accessToken
     }

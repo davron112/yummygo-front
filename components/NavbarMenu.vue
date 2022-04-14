@@ -15,7 +15,9 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <div class="navbar-item"><span class="icon-map-pin"></span>&nbsp;Toshkent, Mirzo Ulugbek, Sayram 44</div>
+        <div class="navbar-item">
+          <span class="icon-map-pin"></span>&nbsp;<span style="font-size: small">{{ address }}</span>
+        </div>
       </div>
 
       <div class="navbar-end">
@@ -29,26 +31,44 @@
         </div>
         <div class="navbar-item">
           <div class="buttons">
-            <a class="button is-primary">
+            <to-link to="/shop/cart" class="button is-primary">
               <span class="icon-shopping-bag"></span><span v-if="cartItems.length">{{ cartItems.length }}</span>
-            </a>
-            <a class="button is-light">
+            </to-link>
+            <a class="button is-light" href="javascript:void(0)" @click="openProfile">
               <span class="icon-user-circle-o"></span>
-              &nbsp;Kirish
+              &nbsp;
+              <span v-if="getLoggedIn">Profil</span>
+              <span v-else>Kirish</span>
             </a>
           </div>
         </div>
       </div>
     </div>
+    <client-only>
+      <LoginForm ref="loginForm" />
+    </client-only>
   </nav>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import LoginForm from '~/components/LoginForm'
 export default {
   name: 'NavbarMenu',
+  components: { LoginForm },
   computed: {
+    ...mapGetters('auth', ['getLoggedIn']),
+    ...mapGetters('setting', ['address']),
     ...mapGetters('cart', ['cartItems'])
+  },
+  methods: {
+    openProfile() {
+      if (!this.getLoggedIn) {
+        this.$refs.loginForm.showModal = true
+      } else {
+        this.$router.push('/profile')
+      }
+    }
   }
 }
 </script>

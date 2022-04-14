@@ -59,6 +59,9 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
+    { src: '~/mixins/global.js', ssr: true },
+    { src: '~/plugins/modal.js', ssr: true },
+    { src: '~/plugins/to-link.js', ssr: true },
     { src: '~/plugins/scroll.js', ssr: true },
     { src: '~/plugins/mixins.js', ssr: true },
     { src: '~/plugins/portal-vue.js', ssr: true },

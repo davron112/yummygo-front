@@ -29,10 +29,11 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('setting', ['latitude', 'longitude']),
     ...mapGetters('restaurant', ['getRestaurants'])
   },
   async created() {
-    await this.fetchRestaurants({ latitude: '40.6976701', longitude: '-74.2598672' })
+    await this.fetchRestaurants({ latitude: this.latitude, longitude: this.longitude })
   },
   methods: {
     ...mapActions('restaurant', ['fetchRestaurants'])

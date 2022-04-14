@@ -17,15 +17,23 @@
 </template>
 
 <script>
-import Footer from '~/components/Footer'
-import NavbarMenu from '~/components/NavbarMenu'
+import Footer from '@/components/Footer'
+import NavbarMenu from '@/components/NavbarMenu'
+import locationMixin from '@/components/mixins/locationMixin'
+
 export default {
   name: 'Default',
   components: { NavbarMenu, Footer },
+  mixins: [locationMixin],
   data() {
     return {
       showBacToTop: false
     }
+  },
+  async mounted() {
+    await this.$nextTick(() => {
+      this.loadLocation()
+    })
   },
   methods: {
     onScroll() {

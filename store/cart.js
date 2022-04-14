@@ -1,16 +1,19 @@
 import set from 'lodash/set'
 
 export const state = () => ({
-  cart: []
+  cartItems: []
 })
 
 export const getters = {
-  cartItems: (state) => {
-    return state.cart
+  cartItems: (state) => state.cartItems,
+  subtotal: (state) => {
+    return state.cartItems.reduce((total, product) => {
+      return product ? total + product.price * product.quantity : total
+    }, 0)
   },
   selectedProducts: (state) => {
     const selectedProducts = []
-    state.cart.forEach((item) => {
+    state.cartItems.forEach((item) => {
       if (item.selected) {
         selectedProducts.push(item)
       }
@@ -66,70 +69,70 @@ export const actions = {
 export const mutations = {
   SELECT_PRODUCT: (state, payload) => {
     const { product, selected } = payload
-    state.cart.forEach((item) => {
-      if (item.item_id === product.item_id) {
+    state.cartItems.forEach((item) => {
+      if (item.id === product.id) {
         item.selected = selected
       }
     })
   },
   ADD_DATA: (state, payload) => {
-    const { field, value, itemId } = payload
-    const indexCart = state.cart.findIndex((item) => item.item_id === itemId)
-    set(state.cart[indexCart], field, value)
+    const { field, value, id } = payload
+    const indexCart = state.cartItems.findIndex((item) => item.id === id)
+    set(state.cartItems[indexCart], field, value)
   },
   ADD_DATA_CART_ITEM: (state, payload) => {
-    state.cart.push(payload)
+    state.cartItems.push(payload)
   },
   ADD_TO_CART: (state, payload) => {
     const product = payload
-    const cartItems = state.cart.find((item) => item.id === payload.id)
+    const cartItems = state.cartItems.find((item) => item.id === payload.id)
     const qty = payload.quantity ? payload.quantity : 1
 
     if (cartItems) {
       // cartItems.quantity = cartItems.quantity + 1
     } else {
-      state.cart.push({
+      state.cartItems.push({
         ...product,
         quantity: qty
       })
     }
   },
   UPDATE_CART_QUANTITY: (state, payload) => {
-    state.cart.find((items, index) => {
+    state.cartItems.find((items, index) => {
       if (items.id === payload.product.id) {
-        const qty = state.cart[index].quantity + payload.qty
+        const qty = state.cartItems[index].quantity + payload.qty
         if (qty !== 0) {
-          state.cart[index].quantity = qty
+          state.cartItems[index].quantity = qty
         } else {
-          state.cart.splice(index, 1)
+          state.cartItems.splice(index, 1)
         }
         return true
       }
     })
   },
   SET_CART_QUANTITY: (state, payload) => {
-    state.cart.find((items, index) => {
+    state.cartItems.find((items, index) => {
       if (items.id === payload.id) {
         const qty = payload.qty
         if (qty !== 0) {
-          state.cart[index].quantity = qty
+          state.cartItems[index].quantity = qty
         }
         return true
       }
     })
   },
   REMOVE_CART_ITEM: (state, payload) => {
-    const index = state.cart.indexOf(payload)
-    state.cart.splice(index, 1)
+    const index = state.cartItems.indexOf(payload)
+    state.cartItems.splice(index, 1)
   },
   REMOVE_SELECTED_ITEM: (state, payload) => {
-    const indexCart = state.cart.indexOf(payload)
-    state.cart.splice(indexCart, 1)
+    const indexCart = state.cartItems.indexOf(payload)
+    state.cartItems.splice(indexCart, 1)
   },
   CLEAR_SELECTED_CART_ITEMS: (state) => {
-    state.cart = state.cart.filter((el) => el.selected !== true)
+    state.cartItems = state.cartItems.filter((el) => el.selected !== true)
   },
   CLEAR_CART_ITEMS: (state) => {
-    state.cart = []
+    state.cartItems = []
   }
 }

@@ -5,7 +5,7 @@
         <h1>{{ info.name }}</h1>
       </div>
       <div class="columns">
-        <div><img v-lazy="getImageUrl(info.image)" width="100px" height="100px" /></div>
+        <div><img v-lazy="getImageUrl(info.image, 'x150')" width="100px" height="100px" /></div>
         <div>O'rtacha narx: {{ info.price_range }} UZS</div>
         <div>Reyting: {{ info.rating }}</div>
         <div>

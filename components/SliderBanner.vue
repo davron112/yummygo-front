@@ -7,7 +7,7 @@
             <div class="home-slider__banner-img">
               <img
                 loading="lazy"
-                :data-srcset="getImageUrl(item.image)"
+                :data-srcset="getImageUrl(item.image, 'x300')"
                 class="home-slider__desktop-img swiper-lazy"
                 width="100%"
                 style="aspect-ratio: 1 / 1"
