@@ -5,11 +5,11 @@
         Yaqiningizdagi {{ getRestaurants.length }} dan ortiq restoranlar
       </h2>
     </div>
-    <div class="columns is-multiline">
+    <div class="columns is-gapless is-multiline is-mobile">
       <RestaurantItem
         v-for="(item, index) in getRestaurants"
         :key="index"
-        class="column is-3"
+        class="column is-two-quarter"
         :item="item"
         style="padding: 8px"
       />

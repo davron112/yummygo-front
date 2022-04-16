@@ -3,14 +3,12 @@
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
-        <img :src="require('@/assets/images/yammi-logo.png')" width="100%" height="88" />
+        <img :src="require('@/assets/images/yammi-logo.png')" width="130" height="100" />
       </a>
 
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
+      <div class="navbar-burger" style="width: 100%; font-size: small; padding: 7px; text-align: right">
+        <i class="icon-map-pin"></i>&nbsp;{{ address }}
+      </div>
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu">
@@ -31,6 +29,7 @@
         </div>
         <div class="navbar-item">
           <div class="buttons">
+            <to-link to="/alerts" class="button is-primary"> <span class="icon-notifications"></span>3 </to-link>
             <to-link to="/shop/cart" class="button is-primary">
               <span class="icon-shopping-bag"></span><span v-if="cartItems.length">{{ cartItems.length }}</span>
             </to-link>

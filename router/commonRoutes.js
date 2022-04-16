@@ -14,6 +14,11 @@ export const commonRoutes = [
     component: load('Page'),
     name: 'page'
   },
+  {
+    path: '/alerts',
+    component: load('Alert'),
+    name: 'page'
+  },
 
   {
     path: '*',
