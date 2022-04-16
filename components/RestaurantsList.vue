@@ -1,15 +1,14 @@
 <template>
   <div class="block">
-    <div class="columns is-left">
-      <h2 style="text-transform: uppercase; font-weight: 700; font-size: 20px">
-        Yaqiningizdagi {{ getRestaurants.length }} dan ortiq restoranlar
-      </h2>
+    <div style="padding: 4px">
+      <h2 style="text-transform: uppercase; font-weight: 700; font-size: 20px">Yaqiningizdagi restoranlar</h2>
+      <span style="font-size: small">{{ getRestaurants.length }} ta restoran</span>
     </div>
     <div class="columns is-gapless is-multiline is-mobile">
       <RestaurantItem
         v-for="(item, index) in getRestaurants"
         :key="index"
-        class="column is-two-quarter"
+        class="product-box"
         :item="item"
         style="padding: 8px"
       />

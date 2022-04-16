@@ -1,5 +1,5 @@
 <template>
-  <div class="home-slider" style="margin-top: 20px">
+  <div class="home-slider" style="margin-top: 20px; padding: 4px">
     <div v-if="items && items.length" v-swiper:mySwiperSlider="swiperOption">
       <div class="swiper-wrapper">
         <div v-for="(item, index) in items" :key="index" class="swiper-slide">
@@ -39,6 +39,20 @@ export default {
       swiperOption: {
         slidesPerView: 5,
         spaceBetween: 10,
+        breakpoints: {
+          1199: {
+            slidesPerView: 5,
+            spaceBetween: 10
+          },
+          991: {
+            slidesPerView: 3,
+            spaceBetween: 5
+          },
+          420: {
+            slidesPerView: 2,
+            spaceBetween: 3
+          }
+        },
         /*
         pagination: {
           el: '.swiper-pagination',

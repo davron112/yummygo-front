@@ -7,15 +7,8 @@
         </figure>
       </div>
       <div class="card-content">
-        <div class="media">
-          <div class="media-left">
-            <figure class="image is-48x48">
-              <img v-lazy="getImageUrl(item.image, 'x150')" alt="Placeholder image" />
-            </figure>
-          </div>
-          <div class="media-content">
-            <p class="title" style="font-size: 16px">{{ item.name }}</p>
-          </div>
+        <div class="title" style="font-size: 16px">
+          {{ item.name }}
         </div>
         <div class="content" style="font-size: 12px">
           {{ item.description }}
