@@ -80,6 +80,10 @@ h1 {
   }
 }
 
+.is-active {
+  color: blue;
+}
+
 @media(max-width: 991px) {
   .columns {
     .product-box {

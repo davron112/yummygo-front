@@ -11,34 +11,33 @@
         <div>
           {{ info.description }}
         </div>
-        <div>Adress: {{ info.address }}</div>
+        <div><i class="icon-map-pin"></i>&nbsp;Manzil: {{ info.address }}</div>
         <div>🕚Yetkazib berish vaqti {{ info.delivery_time }} minut</div>
       </div>
     </div>
 
     <div>
-      <div>
-        <form class="box">
-          <div class="field">
-            <p class="control has-icons-left has-icons-right">
-              <input class="input" type="email" placeholder="Email" />
-              <span class="icon is-small is-left">
-                <i class="fas fa-envelope"></i>
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-check"></i>
-              </span>
-            </p>
+      <form class="box">
+        <div class="field">
+          <div class="control has-icons-left has-icons-right">
+            <label>Shu restorandan qidirish</label>
+            <input class="input" type="text" placeholder="Ovqat nomini yozing" />
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span class="icon is-small is-right">
+              <i class="icon-search"></i>
+            </span>
           </div>
-        </form>
-      </div>
-      <div v-if="recommended.length">
-        <h2>Recommended</h2>
+        </div>
+      </form>
+      <div v-if="recommended.length" style="padding: 6px">
+        <h2>Taklif etilayotganlar</h2>
         <SliderBanner v-if="recommended.length" :items="recommended" />
       </div>
 
-      <div>
-        <h2 class="block">Foods</h2>
+      <div style="padding: 6px">
+        <h2 class="block">Ovqatlar</h2>
         <div v-for="(item, index) in items" :key="index">
           <FoodItems :item="item" />
         </div>

@@ -21,6 +21,9 @@
       <div slot="button-prev" class="swiper-button-prev"></div>
       <div slot="button-next" class="swiper-button-next"></div>
     </div>
+    <div class="home-slider__pagination">
+      <div slot="pagination" class="swiper-pagination2" style="position: relative; height: 20px" />
+    </div>
   </div>
 </template>
 <script type="text/javascript">
@@ -53,13 +56,11 @@ export default {
             spaceBetween: 3
           }
         },
-        /*
         pagination: {
-          el: '.swiper-pagination',
+          el: '.swiper-pagination2',
           type: 'bullets',
           clickable: true
         },
-        */
         autoplay: false,
         preloadImages: true,
         lazy: true,
