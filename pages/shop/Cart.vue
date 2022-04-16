@@ -26,12 +26,20 @@
           </li>
         </ul>
         <div class="column is-3 card">
+          <div>Xisob ma'lumoti</div>
           <ul>
-            <li>
+            <li class="panel-block">
               Maxsulotlarning narxi: <strong>{{ subtotal }}</strong>
             </li>
+            <li class="panel-block">
+              Restoran xizmati: <strong>{{ restaurantCharge }}</strong>
+            </li>
+            <li class="panel-block">
+              Yetkazib berish: <strong style="text-align: end">{{ deliveryPrice }}</strong>
+            </li>
+            <li class="panel-block">Umumiy narxi: {{ totalPrice }}</li>
           </ul>
-          <div style="margin-top: 20px">
+          <div class="is-hidden-mobile" style="margin-top: 20px">
             <button class="button is-success is-light" @click="submit">Buyurtma qilish</button>
           </div>
         </div>
@@ -40,6 +48,24 @@
     <client-only>
       <LoginForm ref="loginForm" />
     </client-only>
+    <portal to="mobile-fixed-footer-menu">
+      <nav
+        class="navbar is-link is-fixed-bottom is-hidden-tablet"
+        role="navigation"
+        style="
+          background-color: #ffad30;
+          text-align: center;
+          padding: 13px;
+          font-size: 15px;
+          font-weight: 700;
+          text-transform: uppercase;
+          cursor: pointer;
+        "
+        @click="submitOrder"
+      >
+        Buyurtma qilish
+      </nav>
+    </portal>
   </div>
 </template>
 
@@ -47,20 +73,73 @@
 import { mapGetters } from 'vuex'
 import Breadcrumbs from '~/components/Breadcrumbs'
 import LoginForm from '~/components/LoginForm'
+import { getRestaurantById } from '~/http/restaurants'
+import { orderCreate } from '~/http/order'
 export default {
   name: 'Cart',
   components: { LoginForm, Breadcrumbs },
   computed: {
     ...mapGetters('cart', ['cartItems', 'subtotal']),
-    ...mapGetters('auth', ['getLoggedIn'])
+    ...mapGetters('setting', ['latitude', 'longitude']),
+    ...mapGetters('auth', ['getLoggedIn']),
+    totalPrice() {
+      return this.subtotal + this.deliveryPrice + this.restaurantCharge
+    }
   },
   data() {
     return {
+      orderForm: {
+        token: '',
+        user: {},
+        order: [],
+        coupon: null,
+        location: { lat: '46.7084264', lng: '20.1436061', address: 'Csongrád, Magyarország', house: null, tag: null },
+        order_comment: null,
+        total: { productQuantity: 1, totalPrice: 42 },
+        method: 'COD',
+        payment_token: '',
+        delivery_type: 1,
+        partial_wallet: false,
+        dis: 6502.552441254412,
+        pending_payment: false,
+        tipAmount: null,
+        cash_change_amount: '',
+        schedule_date: null,
+        schedule_slot: null
+      },
+      restaurantCharge: 0,
+      deliveryPrice: 0,
       showModal: false,
+      restaurantInfo: {},
       headers: [{ label: 'Name', field: 'name' }]
     }
   },
+  async mounted() {
+    await this.$nextTick(() => {
+      this.getRestaurantInfo()
+    })
+  },
   methods: {
+    async getRestaurantInfo() {
+      if (!this.cartItems.length) return
+      const id = await this.cartItems[0].restaurant_id
+      console.log(id, 'id')
+      const data = { id, latitude: this.latitude, longitude: this.longitude }
+      await getRestaurantById(id, data).then((response) => {
+        this.restaurantInfo = response.data
+        this.restaurantCharge = response.data.restaurant_charges || 0
+      })
+    },
+    async submitOrder() {
+      this.orderForm.order.push(...this.cartItems)
+      await orderCreate(this.orderForm)
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    },
     submit() {
       if (!this.getLoggedIn) {
         this.$refs.loginForm.showModal = true

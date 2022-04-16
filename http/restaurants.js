@@ -15,6 +15,14 @@ export function getRestaurantSlides() {
   })
 }
 
+export function getRestaurantById(id, data) {
+  return request({
+    url: `/api/get-restaurant-info-by-id/${id}`,
+    method: 'post',
+    data
+  })
+}
+
 export function getPromoSlides() {
   return request({
     url: `/api/promo-slider`,
