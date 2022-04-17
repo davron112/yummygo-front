@@ -5,22 +5,24 @@
         <h1>{{ info.name }}</h1>
       </div>
       <div class="columns">
-        <div><img v-lazy="getImageUrl(info.image, 'x150')" width="100px" height="100px" /></div>
-        <div>O'rtacha narx: {{ info.price_range }} UZS</div>
-        <div>Reyting: {{ info.rating }}</div>
-        <div>
-          {{ info.description }}
+        <div><img v-lazy="getImageUrl(info.image, 'x400')" width="200px" height="200px" /></div>
+        <div style="display: flex; flex-direction: column; padding-left: 10px">
+          <div>O'rtacha narx: {{ info.price_range }} UZS</div>
+          <div>Reyting: {{ info.rating }}</div>
+          <div>
+            {{ info.description }}
+          </div>
+          <div><i class="icon-map-pin"></i>&nbsp;Manzil: {{ info.address }}</div>
+          <div>🕚Yetkazib berish vaqti {{ info.delivery_time }} minut</div>
         </div>
-        <div><i class="icon-map-pin"></i>&nbsp;Manzil: {{ info.address }}</div>
-        <div>🕚Yetkazib berish vaqti {{ info.delivery_time }} minut</div>
       </div>
     </div>
 
-    <div>
-      <form class="box">
+    <div class="box">
+      <form>
         <div class="field">
+          <label>Shu restorandagi mahsulotlarni qidirish</label>
           <div class="control has-icons-left has-icons-right">
-            <label>Shu restorandan qidirish</label>
             <input class="input" type="text" placeholder="Ovqat nomini yozing" />
             <span class="icon is-small is-left">
               <i class="fas fa-envelope"></i>

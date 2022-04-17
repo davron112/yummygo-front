@@ -3,6 +3,7 @@ import { getAddressByCoords } from '@/http/geo'
 export const namespaced = true
 
 export const state = () => ({
+  house: '',
   address: '',
   lat: '40.6976701',
   lng: '69.320704'
@@ -10,6 +11,7 @@ export const state = () => ({
 
 export const getters = {
   address: (state) => state.address,
+  house: (state) => state.house,
   latitude: (state) => state.lat,
   longitude: (state) => state.lng
 }

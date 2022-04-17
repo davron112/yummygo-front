@@ -8,14 +8,19 @@
       <div class="columns">
         <ul class="responsive-table column is-9">
           <li class="table-header">
-            <div class="col col-3">Nomi</div>
+            <div class="col col-2"></div>
+            <div class="col col-2">Mahsulot</div>
             <div class="col col-4">Batafsil</div>
             <div class="col col-2">Soni</div>
             <div class="col col-3">Narxi</div>
           </li>
           <li v-for="(item, index) in cartItems" :key="index" class="table-row">
-            <div class="col col-3" data-label="Nomi:">
-              <h3>{{ item.name }}</h3>
+            <div class="col col-2" data-label="">
+              <img :src="getImageUrl(item.image, 'x300')" width="100" height="100" style="border-radius: 16px" />
+            </div>
+
+            <div class="col col-2" data-label="Nomi:">
+              <span>{{ item.name }}</span>
             </div>
             <div class="col col-4" data-label="Batafsil:">
               <span v-html="item.desc"></span>
@@ -25,8 +30,13 @@
             <div class="col col-2" data-label="Narxi:">{{ item.price }}</div>
           </li>
         </ul>
-        <div class="column is-3 card">
-          <div>Xisob ma'lumoti</div>
+        <div class="column is-3 card" style="height: fit-content">
+          <h4 style="padding: 5px">Xisob ma'lumoti</h4>
+          <p class="panel-block" style="font-size: small">
+            Yetkazib berish usuli:
+            <span v-if="orderForm.delivery_type === 1" class="tag is-danger is-light">Kurier orqali</span>
+            <span v-else class="tag is-danger is-light">O'zi olib ketish</span>
+          </p>
           <ul>
             <li class="panel-block">
               Maxsulotlarning narxi: <strong>{{ subtotal }}</strong>
@@ -39,8 +49,13 @@
             </li>
             <li class="panel-block">Umumiy narxi: {{ totalPrice }}</li>
           </ul>
+          <div class="box">
+            <h5 style="text-transform: uppercase" class="is-left">Yetkazib berish manzili</h5>
+            <div><i class="icon-map-pin"></i>&nbsp;{{ address }}</div>
+            <span class="tag is-warning">O'zgartirish</span>
+          </div>
           <div class="is-hidden-mobile" style="margin-top: 20px">
-            <button class="button is-success is-light" @click="submit">Buyurtma qilish</button>
+            <button class="button is-info btn-1" @click="submitOrder">Buyurtma qilish</button>
           </div>
         </div>
       </div>
@@ -80,8 +95,8 @@ export default {
   components: { LoginForm, Breadcrumbs },
   computed: {
     ...mapGetters('cart', ['cartItems', 'subtotal']),
-    ...mapGetters('setting', ['latitude', 'longitude']),
-    ...mapGetters('auth', ['getLoggedIn']),
+    ...mapGetters('setting', ['latitude', 'longitude', 'address', 'house']),
+    ...mapGetters('auth', ['getLoggedIn', 'userInfo']),
     totalPrice() {
       return this.subtotal + this.deliveryPrice + this.restaurantCharge
     }
@@ -89,11 +104,16 @@ export default {
   data() {
     return {
       orderForm: {
-        token: '',
         user: {},
         order: [],
         coupon: null,
-        location: { lat: '46.7084264', lng: '20.1436061', address: 'Csongrád, Magyarország', house: null, tag: null },
+        location: {
+          lat: '',
+          lng: '',
+          address: '',
+          house: null,
+          tag: null
+        },
         order_comment: null,
         total: { productQuantity: 1, totalPrice: 42 },
         method: 'COD',
@@ -131,6 +151,14 @@ export default {
       })
     },
     async submitOrder() {
+      this.orderForm.location = {
+        lat: this.latitude,
+        lng: this.longitude,
+        address: this.address,
+        house: this.house,
+        tag: null
+      }
+      this.orderForm.user = this.userInfo
       this.orderForm.order.push(...this.cartItems)
       await orderCreate(this.orderForm)
         .then((response) => {

@@ -32,14 +32,14 @@
         <p class="menu-label is-hidden-touch">Profil</p>
         <ul class="menu-list">
           <li>
-            <a href="#" class="">
+            <a href="#" class="is-active">
               <span class="icon"><i class="fa fa-home"></i></span> Profil
             </a>
           </li>
           <li>
-            <a href="#" class="is-active">
+            <to-link to="/profile/orders">
               <span class="icon"><i class="fa fa-table"></i></span> Buyurtmalar
-            </a>
+            </to-link>
           </li>
           <li>
             <a href="#" class="">

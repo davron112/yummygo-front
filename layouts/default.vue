@@ -44,6 +44,7 @@
 
 <script>
 import Footer from '@/components/Footer'
+import { mapActions } from 'vuex'
 import NavbarMenu from '@/components/NavbarMenu'
 import locationMixin from '@/components/mixins/locationMixin'
 
@@ -60,8 +61,12 @@ export default {
     await this.$nextTick(() => {
       this.loadLocation()
     })
+    await this.$nextTick(() => {
+      this.loadUserInfo()
+    })
   },
   methods: {
+    ...mapActions('auth', ['loadUserInfo']),
     onScroll() {
       // Get the current scroll position
       const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop

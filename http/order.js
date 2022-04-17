@@ -7,3 +7,11 @@ export function orderCreate(data) {
     data
   })
 }
+
+export function getOrders(data) {
+  return request({
+    url: `/api/get-orders`,
+    method: 'post',
+    data
+  })
+}
