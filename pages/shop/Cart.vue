@@ -32,11 +32,6 @@
         </ul>
         <div class="column is-3 card" style="height: fit-content">
           <h4 style="padding: 5px">Xisob ma'lumoti</h4>
-          <p class="panel-block" style="font-size: small">
-            Yetkazib berish usuli:
-            <span v-if="orderForm.delivery_type === 1" class="tag is-danger is-light">Kurier orqali</span>
-            <span v-else class="tag is-danger is-light">O'zi olib ketish</span>
-          </p>
           <ul>
             <li class="panel-block">
               Maxsulotlarning narxi: <strong>{{ subtotal }}</strong>
@@ -44,16 +39,8 @@
             <li class="panel-block">
               Restoran xizmati: <strong>{{ restaurantCharge }}</strong>
             </li>
-            <li class="panel-block">
-              Yetkazib berish: <strong style="text-align: end">{{ deliveryPrice }}</strong>
-            </li>
             <li class="panel-block">Umumiy narxi: {{ totalPrice }}</li>
           </ul>
-          <div class="box">
-            <h5 style="text-transform: uppercase" class="is-left">Yetkazib berish manzili</h5>
-            <div><i class="icon-map-pin"></i>&nbsp;{{ address }}</div>
-            <span class="tag is-warning">O'zgartirish</span>
-          </div>
           <div class="is-hidden-mobile" style="margin-top: 20px">
             <button class="button is-info btn-1" @click="submitOrder">Buyurtma qilish</button>
           </div>
@@ -89,18 +76,9 @@ import { mapGetters } from 'vuex'
 import Breadcrumbs from '~/components/Breadcrumbs'
 import LoginForm from '~/components/LoginForm'
 import { getRestaurantById } from '~/http/restaurants'
-import { orderCreate } from '~/http/order'
 export default {
   name: 'Cart',
   components: { LoginForm, Breadcrumbs },
-  computed: {
-    ...mapGetters('cart', ['cartItems', 'subtotal']),
-    ...mapGetters('setting', ['latitude', 'longitude', 'address', 'house']),
-    ...mapGetters('auth', ['getLoggedIn', 'userInfo']),
-    totalPrice() {
-      return this.subtotal + this.deliveryPrice + this.restaurantCharge
-    }
-  },
   data() {
     return {
       orderForm: {
@@ -134,6 +112,14 @@ export default {
       headers: [{ label: 'Name', field: 'name' }]
     }
   },
+  computed: {
+    ...mapGetters('cart', ['cartItems', 'subtotal']),
+    ...mapGetters('setting', ['latitude', 'longitude', 'address', 'house']),
+    ...mapGetters('auth', ['getLoggedIn', 'userInfo']),
+    totalPrice() {
+      return this.subtotal + this.deliveryPrice + this.restaurantCharge
+    }
+  },
   async mounted() {
     await this.$nextTick(() => {
       this.getRestaurantInfo()
@@ -151,22 +137,7 @@ export default {
       })
     },
     async submitOrder() {
-      this.orderForm.location = {
-        lat: this.latitude,
-        lng: this.longitude,
-        address: this.address,
-        house: this.house,
-        tag: null
-      }
-      this.orderForm.user = this.userInfo
-      this.orderForm.order.push(...this.cartItems)
-      await orderCreate(this.orderForm)
-        .then((response) => {
-          console.log(response)
-        })
-        .catch((error) => {
-          console.error(error)
-        })
+      await this.$router.push('/shop/checkout')
     },
     submit() {
       if (!this.getLoggedIn) {

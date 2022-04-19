@@ -17,17 +17,16 @@ export const getters = {
 }
 
 export const actions = {
-  async addCoordinates({ commit }, coordinates) {
-    await getAddressByCoords({ lat: coordinates.lat, lng: coordinates.lng }).then((response) => {
+  async addCoordinates({ commit }, { lat, lng }) {
+    await getAddressByCoords({ lat, lng }).then((response) => {
       commit('SET_ADDRESS', response.data)
     })
-    await commit('SET_COORDS', coordinates)
+    await commit('SET_COORDS', { lat, lng })
   }
 }
 
 export const mutations = {
   SET_COORDS(state, coordinates) {
-    console.log(coordinates, 'coordinates')
     state.lat = coordinates.lat
     state.lng = coordinates.lng
   },

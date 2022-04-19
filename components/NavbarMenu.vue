@@ -6,14 +6,18 @@
         <img :src="require('@/assets/images/yammi-logo.png')" width="130" height="100" />
       </a>
 
-      <div class="navbar-burger" style="width: 100%; font-size: small; padding: 7px; text-align: right">
+      <div
+        class="navbar-burger"
+        style="cursor: pointer; width: 100%; font-size: small; padding: 7px; text-align: right"
+        @click="openLocationPopup"
+      >
         <i class="icon-map-pin"></i>&nbsp;{{ address }}
       </div>
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <div class="navbar-item">
+        <div class="navbar-item" style="cursor: pointer" @click="openLocationPopup">
           <span class="icon-map-pin"></span>&nbsp;<span style="font-size: small">{{ address }}</span>
         </div>
       </div>
@@ -45,6 +49,7 @@
     </div>
     <client-only>
       <LoginForm ref="loginForm" />
+      <LocationSelect ref="locationSelect" />
     </client-only>
   </nav>
 </template>
@@ -52,9 +57,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import LoginForm from '~/components/LoginForm'
+import LocationSelect from '~/components/LocationSelect'
 export default {
   name: 'NavbarMenu',
-  components: { LoginForm },
+  components: { LocationSelect, LoginForm },
   computed: {
     ...mapGetters('auth', ['getLoggedIn']),
     ...mapGetters('setting', ['address']),
@@ -67,6 +73,9 @@ export default {
       } else {
         this.$router.push('/profile')
       }
+    },
+    openLocationPopup() {
+      this.$refs.locationSelect.showModal = true
     }
   }
 }

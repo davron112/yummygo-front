@@ -44,6 +44,7 @@ export default {
     baseUrl: process.env.API_URL,
     API_DOMEN: process.env.API_DOMEN,
     appVersion: process.env.APP_VERSION,
+    mapKey: process.env.MAP_KEY,
     IMAGE_BASE_URL: process.env.IMAGE_BASE_URL,
     imageOptimizationUrl: process.env.IMAGE_OPTIMIZER_URL
   },
