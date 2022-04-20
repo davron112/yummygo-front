@@ -46,13 +46,15 @@
           </div>
         </div>
       </div>
-      <div v-else style="text-align: center">
-        <img height="200" width="200" :src="require('assets/images/empty-cart.png')" />
-      </div>
-      <div style="text-align: center">
-        <span>Sizning savatchangiz bo'sh</span>
-        <div>
-          <button class="button">Menularni ko'rish</button>
+      <div v-else>
+        <div style="display: flex; flex-direction: column">
+          <img height="200" width="200" :src="require('assets/images/empty-cart.png')" />
+          <div style="text-align: center">
+            <span>Sizning savatchangiz bo'sh</span>
+            <div>
+              <button class="button">Menularni ko'rish</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
