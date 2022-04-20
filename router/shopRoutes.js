@@ -10,5 +10,10 @@ export const shopRoutes = [
     path: '/shop/checkout',
     component: load('shop/Checkout'),
     name: 'Checkout'
+  },
+  {
+    path: '/shop/order-success/:id',
+    component: load('shop/OrderSuccess'),
+    name: 'OrderSuccess'
   }
 ]

@@ -5,7 +5,7 @@
       <h2 class="block" style="padding: 10px">
         Savatchadagi maxsulotlar <small>{{ cartItems.length }} ta</small>
       </h2>
-      <div class="columns">
+      <div v-if="cartItems.length" class="columns">
         <ul class="responsive-table column is-9">
           <li class="table-header">
             <div class="col col-2"></div>
@@ -42,8 +42,17 @@
             <li class="panel-block">Umumiy narxi: {{ totalPrice }}</li>
           </ul>
           <div class="is-hidden-mobile" style="margin-top: 20px">
-            <button class="button is-info btn-1" @click="submitOrder">Buyurtma qilish</button>
+            <button class="button is-info btn-1" @click="submitOrder">Buyurtmani rasmiylashtirsh</button>
           </div>
+        </div>
+      </div>
+      <div v-else style="text-align: center">
+        <img height="200" width="200" :src="require('assets/images/empty-cart.png')" />
+      </div>
+      <div style="text-align: center">
+        <span>Sizning savatchangiz bo'sh</span>
+        <div>
+          <button class="button">Menularni ko'rish</button>
         </div>
       </div>
     </div>

@@ -1,9 +1,10 @@
 <template>
   <Modal v-if="showModal" @close="closeModal">
     <div class="columns">
-      <div class="column">
+      <div class="column" style="height: 50vh">
         <yandex-map id="map" :settings="settings" zoom="10" :coords="[latitude, longitude]" @click="getLocation">
           <ymap-marker
+            style="height: 100%"
             :coords="[latitude, longitude]"
             :marker-id="10000"
             :hint-content="''"
@@ -13,6 +14,7 @@
               imageHref: '/location.png',
               imageOffset: [-35, -65]
             }"
+            @click="getLocation"
           />
         </yandex-map>
       </div>
@@ -47,11 +49,14 @@ export default {
   },
   methods: {
     ...mapActions('auth', ['loginData']),
+    ...mapActions('setting', ['addCoordinates']),
+    async getLocation(e) {
+      const lat = e.get('coords')[0]
+      const lng = e.get('coords')[1]
+      await this.addCoordinates({ lat, lng })
+    },
     closeModal() {
       this.showModal = false
-    },
-    getLocation(data) {
-      console.log(data)
     }
   }
 }

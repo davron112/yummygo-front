@@ -38,12 +38,12 @@
                   :settings="settings"
                   zoom="12"
                   search-control-provider="yandex#search"
-                  :coords="[latitude, longitude]"
+                  :coords="[orderForm.location.lat, orderForm.location.lon]"
                   :draggable="true"
                   @click="getLocation"
                 >
                   <ymap-marker
-                    :coords="[latitude, longitude]"
+                    :coords="[orderForm.location.lat, orderForm.location.lon]"
                     :marker-id="10000"
                     :draggable="true"
                     :hint-content="''"
@@ -221,6 +221,7 @@ export default {
   },
   methods: {
     ...mapActions('setting', ['addCoordinates']),
+    ...mapActions('cart', ['clearCart']),
     async getLocation(e) {
       this.orderForm.location.lat = e.get('coords')[0]
       this.orderForm.location.lon = e.get('coords')[1]
@@ -233,7 +234,6 @@ export default {
     async getRestaurantInfo() {
       if (!this.cartItems.length) return
       const id = await this.cartItems[0].restaurant_id
-      console.log(id, 'id')
       const data = { id, latitude: this.latitude, longitude: this.longitude }
       await getRestaurantById(id, data).then((response) => {
         this.restaurantInfo = response.data
@@ -255,7 +255,10 @@ export default {
       this.orderForm.order.push(...this.cartItems)
       await orderCreate(this.orderForm)
         .then((response) => {
-          console.log(response)
+          if (response.data.success) {
+            this.clearCart()
+            this.$router.push(`/shop/order-success/${response.data.data.id}`)
+          }
         })
         .catch((error) => {
           console.error(error)

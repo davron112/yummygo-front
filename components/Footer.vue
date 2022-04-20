@@ -1,7 +1,7 @@
 <template>
-  <footer class="footer">
+  <footer>
     <div class="content has-text-centered">
-      <p><strong>Yammi.uz</strong> <a href="https://jgthms.com"></a></p>
+      <p><strong>Yammi.uz</strong> <a href="https://yammi.uz"></a></p>
     </div>
   </footer>
 </template>
